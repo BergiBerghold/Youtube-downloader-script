@@ -23,6 +23,9 @@ with open('tracklist_set_3.txt', 'r') as f:
 
 song_names = [x.strip() for x in song_names]
 
+if not os.path.isdir(output_dir):
+    os.mkdir(output_dir)
+
 downloaded_tracks = glob.glob(f'{output_dir}/*.mp3')
 downloaded_tracks = [x[:-4] for x in downloaded_tracks]
 
