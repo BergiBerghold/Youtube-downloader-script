@@ -27,7 +27,7 @@ if not os.path.isdir(output_dir):
     os.mkdir(output_dir)
 
 downloaded_tracks = glob.glob(f'{output_dir}/*.mp3')
-downloaded_tracks = [x[:-4] for x in downloaded_tracks]
+downloaded_tracks = [x.split('/')[-1][:-4] for x in downloaded_tracks]
 
 start_time = time.perf_counter()
 download_counter = 0
