@@ -5,6 +5,7 @@ import time
 import os
 
 output_dir = 'tracks_set_3'
+max_retries = 5
 
 
 def download(url, path):
@@ -32,8 +33,16 @@ downloaded_tracks = [x.split('/')[-1][:-4] for x in downloaded_tracks]
 start_time = time.perf_counter()
 download_counter = 0
 
+song_names = song_names[90:]
+
 for idx, song_name in enumerate(song_names):
-    s = pytube.Search(song_name)
+    for i in range(max_retries):
+        try:
+            s = pytube.Search(song_name)
+        except Exception as e:
+            print(f'Exception while searching caught: {e}')
+        else:
+            break
 
     title = s.results[0].title
     url = s.results[0].watch_url
@@ -52,5 +61,12 @@ for idx, song_name in enumerate(song_names):
 
     print('')
 
-    download(s.results[0].watch_url, output_dir)
+    for i in range(max_retries):
+        try:
+            download(s.results[0].watch_url, output_dir)
+        except Exception as e:
+            print(f'Exception while downloading caught: {e}')
+        else:
+            break
+
     download_counter += 1
