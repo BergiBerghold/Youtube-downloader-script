@@ -41,6 +41,7 @@ for idx, song_name in enumerate(song_names):
             s = pytube.Search(song_name)
         except Exception as e:
             print(f'Exception while searching caught: {e}')
+            time.sleep(10)
         else:
             break
 
@@ -66,6 +67,7 @@ for idx, song_name in enumerate(song_names):
             download(s.results[0].watch_url, output_dir)
         except Exception as e:
             print(f'Exception while downloading caught: {e}')
+            time.sleep(10)
         else:
             break
 
