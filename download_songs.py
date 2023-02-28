@@ -1,5 +1,5 @@
-from pytube import Search, YouTube
 from datetime import timedelta
+import pytube
 import glob
 import time
 import os
@@ -8,7 +8,7 @@ output_dir = 'tracks_set_3'
 
 
 def download(url, path):
-    yt = YouTube(url)
+    yt = pytube.YouTube(url)
     video = yt.streams.filter(only_audio=True).first()
 
     out_file = video.download(output_path=path)
@@ -33,7 +33,7 @@ start_time = time.perf_counter()
 download_counter = 0
 
 for idx, song_name in enumerate(song_names):
-    s = Search(song_name)
+    s = pytube.Search(song_name)
 
     title = s.results[0].title
     url = s.results[0].watch_url
